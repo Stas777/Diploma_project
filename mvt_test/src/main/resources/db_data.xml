@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="data_0.0.1_prod" author="spetrovich" context="prod">
+        <sql endDelimiter=";">
+            /*!40101 SET NAMES utf8 */;
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.basepath', '/var/tmp/mvt/');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.password', '123');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.url', 'ftp://mvtftp:123@127.0.0.1:21/mvt');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.user', 'mvtftp');
+        </sql>
+    </changeSet>
+    <changeSet id="data_0.0.1_dev" author="spetrovich" context="dev">
+        <sql endDelimiter=";">
+            /*!40101 SET NAMES utf8 */;
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.basepath', '/var/tmp/mvt-dev/');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.password', '123');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.url', 'ftp://mvtftp:123@127.0.0.1:21/mvt-dev');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.user', 'mvtftp');
+        </sql>
+    </changeSet>
+    <changeSet id="data_0.0.1_test" author="spetrovich" context="test">
+        <sql endDelimiter=";">
+            /*!40101 SET NAMES utf8 */;
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.basepath', '/var/tmp/mvt-test/');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.password', '123');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.url', 'ftp://mvtftp:123@127.0.0.1:21/mvt-test');
+            INSERT INTO `config` (`name`, `value`) VALUES ('ftp.user', 'mvtftp');
+        </sql>
+    </changeSet>
+    <changeSet id="data_0.0.2_all" author="spetrovich" context="dev,prod,test">
+        <sql endDelimiter=";">
+            /*!40101 SET NAMES utf8 */;
+
+            /*!40101 SET SQL_MODE=''*/;
+
+            /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+            /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+            /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+            /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+            -- DELETE FROM `sport_motion_type`;
+            -- DELETE FROM `sport`;
+            -- ALTER TABLE `sport` AUTO_INCREMENT=1;
+            -- DELETE FROM `motion_type`;
+            -- ALTER TABLE `motion_type` AUTO_INCREMENT=1;
+
+            /*Data for the table `sport` */
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (1,'UNDEFINED',NULL,1);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (2,'PINGPONG',NULL,2);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (3,'TENNIS',NULL,3);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (4,'BOX',NULL,4);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (5,'GOLF',NULL,5);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (6,'SKIING',NULL,6);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (7,'FOOTBALL',NULL,7);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (8,'HORSE_RIDING',NULL,8);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (9,'HORSE_JUMPING',NULL,9);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (10,'RUGBY',NULL,10);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (11,'BADMINTON',NULL,11);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (12,'SQUASH',NULL,12);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (13,'FENCING',NULL,13);
+            insert  into `sport`(`id`,`name`,`reglament_id`,`value`) values (14,'KICKBOXING',NULL,14);
+
+            /*Data for the table `motion_type` */
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (1,'UNDEFINED',NULL,1);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (2,'ATTACK',NULL,2);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (3,'BLOCK_BH',NULL,3);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (4,'BLOCK_FH',NULL,4);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (5,'CHOP_BH',NULL,5);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (6,'CHOP_FH',NULL,6);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (7,'CROSS',NULL,7);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (8,'DESCEND',NULL,8);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (9,'DRIVE_BH',NULL,9);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (10,'DRIVE_FH',NULL,10);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (11,'DROPSHOT_BH',NULL,11);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (12,'DROPSHOT_FH',NULL,12);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (13,'FRONT_KICK',NULL,13);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (14,'HALF_VOLLEY_BH',NULL,14);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (15,'HALF_VOLLEY_FH',NULL,15);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (16,'HOOK',NULL,16);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (17,'JAB',NULL,17);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (18,'JUMP',NULL,18);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (19,'JUMPING',NULL,19);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (20,'KICK',NULL,20);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (21,'LIFT_BH',NULL,21);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (22,'LIFT_FH',NULL,22);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (23,'LINE_OUT',NULL,23);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (24,'LOB_BH',NULL,24);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (25,'LOB_FH',NULL,25);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (26,'LOOP_BH',NULL,26);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (27,'LOOP_FH',NULL,27);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (28,'NET_SHOT_BH',NULL,28);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (29,'NET_SHOT_FH',NULL,29);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (30,'OVERHEAD',NULL,30);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (31,'PASS',NULL,31);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (32,'PUSH_BH',NULL,32);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (33,'PUSH_FH',NULL,33);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (34,'ROUNDHOUSE_KICK',NULL,34);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (35,'RUNNING',NULL,35);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (36,'SEMICIRCULAR_KICK',NULL,36);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (37,'SERVE',NULL,37);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (38,'SIDE_KICK',NULL,38);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (39,'SLICE_BH',NULL,39);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (40,'SLICE_FH',NULL,40);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (41,'SMASH',NULL,41);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (42,'SPEED_DRIVE_BH',NULL,42);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (43,'SPEED_DRIVE_FH',NULL,43);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (44,'STANDING',NULL,44);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (45,'STEP',NULL,45);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (46,'STROKE_PASS',NULL,46);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (47,'STROKE_SHOOT',NULL,47);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (48,'STROKE_TACKLE',NULL,48);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (49,'STROKE_TOUCH',NULL,49);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (50,'SWING',NULL,50);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (51,'UPPERCUT',NULL,51);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (52,'VOLLEY_BH',NULL,52);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (53,'VOLLEY_FH',NULL,53);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (54,'WALKING',NULL,54);
+            insert  into `motion_type`(`id`,`name`,`reglament_id`,`value`) values (55,'MIZUKI_FH',NULL,55);
+
+            /*Data for the table `sport_motion_type`*/
+
+            /*PINGPONG`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'BLOCK_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'BLOCK_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'CHOP_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'CHOP_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'LOB_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'LOB_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'LOOP_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'LOOP_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'PUSH_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'PUSH_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'SMASH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'SPEED_DRIVE_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'PINGPONG' and mt.name = 'SPEED_DRIVE_FH');
+
+            /*TENNIS`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'DRIVE_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'DRIVE_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'DROPSHOT_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'DROPSHOT_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'HALF_VOLLEY_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'HALF_VOLLEY_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'LOB_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'LOB_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'SERVE');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'SLICE_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'SLICE_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'SMASH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'VOLLEY_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'TENNIS' and mt.name = 'VOLLEY_FH');
+
+            /*BOX`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BOX' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BOX' and mt.name = 'JAB');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BOX' and mt.name = 'CROSS');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BOX' and mt.name = 'HOOK');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BOX' and mt.name = 'UPPERCUT');
+
+            /*GOLF`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'GOLF' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'GOLF' and mt.name = 'SWING');
+
+            /*SKIING`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SKIING' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SKIING' and mt.name = 'DESCEND');
+
+            /*FOOTBAL`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'STEP');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'STANDING');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'WALKING');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'RUNNING');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'JUMPING');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'STROKE_TOUCH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'STROKE_PASS');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'STROKE_TACKLE');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FOOTBAL' and mt.name = 'STROKE_SHOOT');
+
+            /*HORSE_RIDING`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'HORSE_RIDING' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'HORSE_RIDING' and mt.name = 'JUMP');
+
+            /*HORSE_JUMPING`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'HORSE_JUMPING' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'HORSE_JUMPING' and mt.name = 'JUMP');
+
+            /*RUGBY`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'RUGBY' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'RUGBY' and mt.name = 'LINE_OUT');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'RUGBY' and mt.name = 'KICK');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'RUGBY' and mt.name = 'PASS');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'RUGBY' and mt.name = 'RUNNING');
+
+            /*BADMINTON`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='OVERHEAD');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='LIFT_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='LIFT_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='NET_SHOT_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='NET_SHOT_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='DRIVE_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='DRIVE_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'BADMINTON' and mt.name ='SERVE');
+
+            /*SQUASH`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'MIZUKI_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'DRIVE_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'DRIVE_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'LOB_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'LOB_BH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'DROPSHOT_FH');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'SQUASH' and mt.name = 'DROPSHOT_BH');
+
+            /*FENCING`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FENCING' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'FENCING' and mt.name = 'ATTACK');
+
+            /*KICKBOXING`*/
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'UNDEFINED');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'JAB');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'CROSS');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'HOOK');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'UPPERCUT');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'FRONT_KICK');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'SIDE_KICK');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'SEMICIRCULAR_KICK');
+            insert into `sport_motion_type` (`sport_id`, `motion_type_id`) (select s.id, mt.id from sport s, `motion_type` mt where s.name = 'KICKBOXING' and mt.name = 'ROUNDHOUSE_KICK');
+
+
+
+
+            -- DELETE FROM `sensor_location`;
+            -- ALTER TABLE `sensor_location` AUTO_INCREMENT=1;
+
+            /*Data for the table `sensor_location` */
+            insert  into `sensor_location`(`id`,`name`,`value`) values (1,'DEFAULT ',1);
+            insert  into `sensor_location`(`id`,`name`,`value`) values (2,'LEFT_ARM',2);
+            insert  into `sensor_location`(`id`,`name`,`value`) values (3,'RIGHT_ARM ',4);
+            insert  into `sensor_location`(`id`,`name`,`value`) (select 4, 'ARM', (select value from `sensor_location` where `name` = 'LEFT_ARM') | ((select value from `sensor_location` where `name` = 'RIGHT_ARM')) );
+            insert  into `sensor_location`(`id`,`name`,`value`) values (5,'BREAST ',8);
+            insert  into `sensor_location`(`id`,`name`,`value`) values (6,'LEFT_LEG ',16);
+            insert  into `sensor_location`(`id`,`name`,`value`) values (7,'RIGHT_LEG ',32);
+            insert  into `sensor_location`(`id`,`name`,`value`) (select 8, 'LEG', (select value from `sensor_location` where `name` = 'LEFT_LEG') | ((select value from `sensor_location` where `name` = 'RIGHT_LEG')) );
+            insert  into `sensor_location`(`id`,`name`,`value`) values (9,'EQUIPMENT ',64);
+
+
+            /*Data for the table `qualifier_key` */
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 1,'TENNIS',10,25,1700,sl.id,s.id from sensor_location sl, sport s where s.name = 'TENNIS' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 2,'PINGPONG',9,3,1100,sl.id,s.id from sensor_location sl, sport s where s.name = 'PINGPONG' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 3,'SQUASH',70,20,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'SQUASH' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 4,'BADMINTON',25,2,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'BADMINTON' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 5,'HORSE_RIDING',12.5,4,1400,sl.id,s.id from sensor_location sl, sport s where s.name = 'HORSE_RIDING' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 6,'HORSE_JUMPING',70,40,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'HORSE_JUMPING' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 7,'FOOTBALL_ACTIVITY',0,0,1000,sl.id,s.id from sensor_location sl, sport s where s.name = 'FOOTBALL' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 8,'FOOTBALL_MOTION',80,20,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'FOOTBALL' and sl.name = 'DEFAULT');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 9,'BOX_ARM',20,25,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'BOX' and sl.name = 'ARM');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 10,'KICKBOXING_ARM',20,25,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'KICKBOXING' and sl.name = 'ARM');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 11,'KICKBOXING_LEG',20,25,0,sl.id,s.id from sensor_location sl, sport s where s.name = 'KICKBOXING' and sl.name = 'LEG');
+
+            insert  into `qualifier_key`(`id`,`name`,`signal_threshold`,`extreme_delta`,`min_activity_duration`,`sensor_location_id`,`sport_id`)
+            (select 12,'FENCING',10,8,300,sl.id,s.id from sensor_location sl, sport s where s.name = 'KICKBOXING' and sl.name = 'LEG');
+
+
+
+            /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+            /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+            /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+            /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+        </sql>
+    </changeSet>
+
+    <changeSet id="data_0.0.3_all" author="spetrovich" context="dev,prod,test">
+        <sql endDelimiter=";">
+            insert  into `log_action`(`id`,`name`) values (1,'ACTION_CREATE_SAMPLE'),(2,'ACTION_UPDATE_SAMPLE');
+        </sql>
+    </changeSet>
+
+    <changeSet id="data_0.0.4_all" author="spetrovich" context="dev,prod,test">
+        <sql endDelimiter=";">
+            INSERT INTO `config` (`name`) VALUES ('email.notify_list');
+            INSERT INTO `config` (`name`, `value`) VALUES ('email.notify_status', 'disable');
+            INSERT INTO `config` (`name`, `value`) VALUES ('email.login', 'mvt@maildomen.com');
+            INSERT INTO `config` (`name`, `value`) VALUES ('email.password', '123456');
+        </sql>
+    </changeSet>
+
+    <changeSet id="data_0.0.5_all" author="spetrovich" context="dev,prod,test">
+        <sql endDelimiter=";">
+            INSERT INTO `config` (`name`, `value`) VALUES ('email.smtp.host', 'mail.maildomen.com');
+            INSERT INTO `config` (`name`, `value`) VALUES ('email.smtp.port', '2525');
+        </sql>
+    </changeSet>
+
+    <changeSet id="data_0.0.6_dev" author="spetrovich" context="dev, prod, test">
+        <sql endDelimiter=";">
+            INSERT INTO `user` (`id`,`first_name`,`last_name`,`email`,`password`) VALUES ('1','Stas','Petrovich','stas@bsu.by','698d51a19d8a121ce581499d7b701668');
+        </sql>
+    </changeSet>
+
+    <changeSet id="data_0.0.7_dev" author="spetrovich" context="dev, prod, test">
+        <sql endDelimiter=";">
+            INSERT INTO `sample` (`id`,`sample_usage`,`description`,`player_level`,`sport_id`) VALUES ('1','NONE','123','1','3');
+            INSERT INTO `sample` (`id`,`sample_usage`,`description`,`player_level`,`sport_id`) VALUES ('2','NONE','345','1','4');
+        </sql>
+    </changeSet>
+
+    <changeSet id="data_0.0.8_dev" author="spetrovich" context="dev, prod, test">
+        <sql endDelimiter=";">
+            INSERT INTO `reglament` (`id`, `max_qualification_error`, `max_classification_error`, `min_activity_match`, `name`, `scope_sport`, `scope_sample`, `scope_activity`, `scope_motion_type`) VALUES ('1', '22.4', '23.5', '32.7', 'testName', '1', '1', '1', '1');
+            INSERT INTO `mvt_dev2`.`activity` (`id`, `start_time`,`duration`, `sample_id`, `motion_type_id`, `reglament_id`, `mark_confidence`)VALUES ('1', '1230', '30', '1', '1', '1', '1');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

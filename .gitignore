@@ -1,0 +1,4 @@
+mvt_test/.idea/*
+mvt_test/db/*
+mvt_test/pom-shared.xml
+mvt_test/target

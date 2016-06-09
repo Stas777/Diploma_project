@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="structure_0.0.1" author="spetrovich" context="dev, prod, test">
+        <sql endDelimiter=";">
+            /*!40101 SET NAMES utf8 */;
+
+            /*!40101 SET SQL_MODE=''*/;
+
+            /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+            /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+            /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+            /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+            /*Table structure for table `activity` */
+
+            DROP TABLE IF EXISTS `activity`;
+
+            CREATE TABLE `activity` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `start_time` datetime NOT NULL,
+            `duration` int(11) NOT NULL,
+            `sample_id` bigint(20) NOT NULL,
+            `motion_type_id` bigint(20) DEFAULT NULL,
+            `reglament_id` bigint(20) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `sample_id` (`sample_id`),
+            KEY `motion_type_id` (`motion_type_id`),
+            KEY `reglament_id` (`reglament_id`),
+            CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`sample_id`) REFERENCES `sample` (`id`),
+            CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`motion_type_id`) REFERENCES `motion_type` (`id`),
+            CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`reglament_id`) REFERENCES `reglament` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `config` */
+
+            DROP TABLE IF EXISTS `config`;
+
+            CREATE TABLE `config` (
+            `name` varchar(64) NOT NULL,
+            `value` varchar(256) DEFAULT NULL,
+            PRIMARY KEY (`name`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `motion_type` */
+
+            DROP TABLE IF EXISTS `motion_type`;
+
+            CREATE TABLE `motion_type` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `name` varchar(32) NOT NULL,
+            `reglament_id` bigint(20) DEFAULT NULL,
+            `value` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `value` (`value`),
+            UNIQUE KEY `name` (`name`),
+            KEY `reglament_id` (`reglament_id`),
+            CONSTRAINT `motion_type_ibfk_2` FOREIGN KEY (`reglament_id`) REFERENCES `reglament` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `qualifier_key` */
+
+            DROP TABLE IF EXISTS `qualifier_key`;
+
+            CREATE TABLE `qualifier_key` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `name` varchar(32) NOT NULL,
+            `signal_threshold` float DEFAULT NULL,
+            `extreme_delta` float DEFAULT NULL,
+            `min_activity_duration` float DEFAULT NULL,
+            `sensor_location_id` bigint(20) NOT NULL,
+            `sport_id` bigint(20) NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `name` (`name`),
+            KEY `sport_id` (`sport_id`),
+            KEY `sensor_location_id` (`sensor_location_id`),
+            CONSTRAINT `qualifier_key_ibfk_1` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`),
+            CONSTRAINT `qualifier_key_ibfk_2` FOREIGN KEY (`sensor_location_id`) REFERENCES `sensor_location` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `reglament` */
+
+            DROP TABLE IF EXISTS `reglament`;
+
+            CREATE TABLE `reglament` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `max_qualification_error` float DEFAULT NULL,
+            `max_classification_error` float DEFAULT NULL,
+            `min_activity_match` float NOT NULL,
+            `name` varchar(32) DEFAULT NULL,
+            `scope_sport` tinyint(1) NOT NULL DEFAULT '0',
+            `scope_sample` tinyint(1) NOT NULL DEFAULT '0',
+            `scope_activity` tinyint(1) NOT NULL DEFAULT '0',
+            `scope_motion_type` tinyint(1) NOT NULL DEFAULT '0',
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `sample` */
+
+            DROP TABLE IF EXISTS `sample`;
+
+            CREATE TABLE `sample` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `sample_usage` enum('NONE','TRANING','CONTROL') DEFAULT NULL,
+            `description` varchar(512) DEFAULT NULL,
+            `sport_id` bigint(20) NOT NULL,
+            `reglament_id` bigint(20) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `sport_id` (`sport_id`),
+            KEY `reglament_id` (`reglament_id`),
+            CONSTRAINT `sample_ibfk_1` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`),
+            CONSTRAINT `sample_ibfk_2` FOREIGN KEY (`reglament_id`) REFERENCES `reglament` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `sensor_data_file` */
+
+            DROP TABLE IF EXISTS `sensor_data_file`;
+
+            CREATE TABLE `sensor_data_file` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `path` varchar(256) NOT NULL,
+            `file_hash` varchar(256) NOT NULL,
+            `description` varchar(256) DEFAULT NULL,
+            `create_date` datetime NOT NULL,
+            `sample_id` bigint(20) DEFAULT NULL,
+            `qualifier_key_id` bigint(20) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `sample_id` (`sample_id`),
+            KEY `qualifier_key_id` (`qualifier_key_id`),
+            CONSTRAINT `sensor_data_file_ibfk_1` FOREIGN KEY (`sample_id`) REFERENCES `sample` (`id`),
+            CONSTRAINT `sensor_data_file_ibfk_2` FOREIGN KEY (`qualifier_key_id`) REFERENCES `qualifier_key` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `sensor_location` */
+
+            DROP TABLE IF EXISTS `sensor_location`;
+
+            CREATE TABLE `sensor_location` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `name` varchar(32) DEFAULT NULL,
+            `value` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `value` (`value`),
+            UNIQUE KEY `name` (`name`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `sport` */
+
+            DROP TABLE IF EXISTS `sport`;
+
+            CREATE TABLE `sport` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `name` varchar(32) NOT NULL,
+            `reglament_id` bigint(20) DEFAULT NULL,
+            `value` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `name` (`name`),
+            UNIQUE KEY `value` (`value`),
+            KEY `reglament_id` (`reglament_id`),
+            CONSTRAINT `sport_ibfk_1` FOREIGN KEY (`reglament_id`) REFERENCES `reglament` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `sport_motion_type` */
+
+            DROP TABLE IF EXISTS `sport_motion_type`;
+
+            CREATE TABLE `sport_motion_type` (
+            `sport_id` bigint(20) NOT NULL,
+            `motion_type_id` bigint(20) NOT NULL,
+            PRIMARY KEY (`sport_id`,`motion_type_id`),
+            KEY `motion_type_id` (`motion_type_id`),
+            CONSTRAINT `sport_motion_type_ibfk_1` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`),
+            CONSTRAINT `sport_motion_type_ibfk_2` FOREIGN KEY (`motion_type_id`) REFERENCES `motion_type` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*Table structure for table `video_file` */
+
+            DROP TABLE IF EXISTS `video_file`;
+
+            CREATE TABLE `video_file` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `path` varchar(256) NOT NULL,
+            `file_hash` varchar(256) NOT NULL,
+            `description` varchar(256) DEFAULT NULL,
+            `sample_id` bigint(20) NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `sample_id` (`sample_id`),
+            CONSTRAINT `video_file_ibfk_1` FOREIGN KEY (`sample_id`) REFERENCES `sample` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+            /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+            /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+            /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.2" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-16</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `activity` CHANGE `start_time` `start_time` BIGINT(20) NOT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.3" author="spetrovich" context="dev, prod, test">
+        <comment>meeting with a.eroma 29.05.14</comment>
+        <sql endDelimiter=";">
+            SET FOREIGN_KEY_CHECKS = 0;
+            ALTER TABLE `sensor_data_file` CHANGE `sample_id` `sample_id` BIGINT(20) NOT NULL;
+            SET FOREIGN_KEY_CHECKS = 1;
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.4" author="spetrovich" context="dev, prod, test">
+        <comment>user and sample log according meeting with a.eroma 10.10.14</comment>
+        <sql endDelimiter=";">
+            CREATE TABLE `user`( `id` BIGINT NOT NULL AUTO_INCREMENT, `first_name` VARCHAR(64) NOT NULL, `last_name` VARCHAR(64) NOT NULL, `email` VARCHAR(64) NOT NULL, `password` VARCHAR(32) NOT NULL, PRIMARY KEY (`id`), UNIQUE KEY `email` (`email`) );
+            CREATE TABLE `log`( `id` BIGINT NOT NULL AUTO_INCREMENT, `user_id` BIGINT NOT NULL, `sample_id` BIGINT, `action_id` BIGINT, `action_data` VARCHAR(512), `action_date` DATETIME NOT NULL, PRIMARY KEY (`id`) );
+            CREATE TABLE `log_action` (`id` BIGINT NOT NULL, `name` varchar(32) DEFAULT NULL, PRIMARY KEY (`id`) );
+            ALTER TABLE `log` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`), ADD FOREIGN KEY (`sample_id`) REFERENCES `sample`(`id`);
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.5" author="spetrovich" context="dev, prod, test">
+        <comment>for email </comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `config` CHANGE `value` `value` VARCHAR(4096) NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="structure_0.0.6" author="spetrovich" context="dev, prod, test">
+        <comment></comment>
+        <sql endDelimiter=";">
+            CREATE TABLE `extra_sample` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `sample_id` bigint(20) DEFAULT NULL,
+            `type` varchar(128) NOT NULL,
+            `key` varchar(128) NOT NULL,
+            `value` varchar(512) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `sample_id` (`sample_id`),
+            CONSTRAINT `extra_sample_ibfk_1` FOREIGN KEY (`sample_id`) REFERENCES `sample` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `extra_activity` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `activity_id` bigint(20) DEFAULT NULL,
+            `type` varchar(128) NOT NULL,
+            `key` varchar(128) NOT NULL,
+            `value` varchar(512) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `activity_id` (`activity_id`),
+            CONSTRAINT `extra_activity_ibfk_1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="structure_0.0.7" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-32</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `sample` ADD COLUMN `player_level` ENUM('BEGINNER','AMATEUR','PROFESIONAL') NULL AFTER `description`;
+        </sql>
+    </changeSet>
+
+    <changeSet id="structure_0.0.8" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-33</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `sample` CHANGE `sample_usage` `sample_usage` ENUM('NONE','TRANING','CONTROL','INVALID') NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="structure_0.0.9" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-35</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `sample` DROP COLUMN `player_level`, ADD COLUMN `player_level` ENUM('BEGINNER','AMATEUR','PROFESSIONAL') DEFAULT 'PROFESSIONAL' NOT NULL AFTER `description`;
+        </sql>
+    </changeSet>
+
+    <changeSet id="structure_0.0.10" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-36</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `activity` ADD COLUMN `mark_confidence` ENUM('LOW','MEDIUM','HIGH') DEFAULT 'HIGH' NOT NULL AFTER `reglament_id`;
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.11" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-37: cascade extras delete on activity delete</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `extra_activity` DROP FOREIGN KEY `extra_activity_ibfk_1`;
+            ALTER TABLE `extra_activity` ADD CONSTRAINT `extra_activity_ibfk_1` FOREIGN KEY (`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE;
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.12" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-39: 2) Modify extra_sample change "value" type from VarChar(512) to mediumtext</comment>
+        <sql endDelimiter=";">
+            ALTER TABLE `extra_sample` CHANGE `value` `value` MEDIUMTEXT NOT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="structure_0.0.13" author="spetrovich" context="dev, prod, test">
+        <comment>MVT-39: Add 'ExtraFile' entity into database and REST API</comment>
+        <sql endDelimiter=";">
+            CREATE TABLE `extra_file` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `path` varchar(256) NOT NULL,
+            `file_hash` varchar(256) NOT NULL,
+            `display_name` varchar(256) DEFAULT NULL,
+            `description` varchar(256) DEFAULT NULL,
+            `sample_id` bigint(20) NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `sample_id` (`sample_id`),
+            CONSTRAINT `extra_file_ibfk_1` FOREIGN KEY (`sample_id`) REFERENCES `sample` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
